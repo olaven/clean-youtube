@@ -7,7 +7,7 @@ Unfinished, minimal design for watching videos on Youtube. Made because of my su
 * Go to Options > Write new style
 * Paste userstyle.css in the code textarea
 * Choose "URLs matching the regexp" from the dropdown menu below
-* Paste `https://www.youtube.com/(watch|results).*` in the textbox new to the dropdown
+* Paste `https://www.youtube.com/(watch|results).*` in the textbox next to the dropdown
 * Click Add
 * Write a good name in the top left textbox
 * Click save
