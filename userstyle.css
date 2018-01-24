@@ -11,7 +11,12 @@
 #video-annotations,
 #menu-container,
 #videoAdUi,
-ytd-item-section-renderer
+.adDisplay
+ytd-item-section-renderer,
+ytd-promoted-video-renderer,
+#guide,
+.ytp-chrome-top-buttons,
+.video-ads
 {
     display: none;
 }
@@ -22,16 +27,4 @@ ytd-item-section-renderer
     display: flex;
     flex-direction: column-reverse;
   }
-}
-
-/* Use dark colors */
-#container {
-  background: #ddd;
-  filter: invert(1);
-}
-#container img {
-  filter: invert(1);
-}
-#top {
-  background: #111;
 }
