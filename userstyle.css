@@ -1,0 +1,37 @@
+/* Remove ui elements */
+#masthead-container #button,
+#masthead-container #guide-button,
+#masthead-container #logo,
+#google_companion_ad_div,
+#ytp-cards-button-icon,
+#comments,
+#continuations,
+#meta-contents,
+#upnext,
+#video-annotations,
+#menu-container,
+#videoAdUi,
+ytd-item-section-renderer
+{
+    display: none;
+}
+
+/* Adjust design */
+@media (min-width: 1000px) {
+  #main {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+/* Use dark colors */
+#container {
+  background: #ddd;
+  filter: invert(1);
+}
+#container img {
+  filter: invert(1);
+}
+#top {
+  background: #111;
+}
