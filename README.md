@@ -18,7 +18,7 @@ Unfinished, minimal design for watching videos on Youtube. Made because of my su
 * Navigate to youtube.com
 * Turn on `dark mode` in the dropdown menu on the top right
 * Choose a random video
-* Turn on `Theater mode` by clicking the second last button on the bottom right on the video
+* Turn on `Theater mode` by clicking the second last button on the bottom right of the video
 
 
 ![](https://i.imgur.com/IwYityD.png)
