@@ -1,0 +1,12 @@
+#!/bin/bash
+
+while true; do
+  echo -n "Search: "
+  read -r query
+  res=$(curl -G https://www.googleapis.com/youtube/v3/search -d part="snippet" -d q="$query" -d key="AIzaSyACswl9KTl6H-gHhSyU2AqseAIVf_c3mFE" 2>/dev/null)
+  echo $res | jq -cr '.items[].snippet.title' | nl
+  echo
+  echo -n "Number: "
+  read -r ix
+  mpv "https://www.youtube.com/watch?v=$(echo $res | jq -cr '.items[].id.videoId' | sed "$(echo $ix)q;d")"
+done
