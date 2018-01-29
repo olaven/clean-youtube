@@ -44,7 +44,11 @@ class App extends Component {
           action: "next",
           keybind: "tab"
         }
-      ]
+      ], 
+      currentlyPlaying : {
+        title: "The Design of Breath of The Wild's Great Plateau",
+        videoSource: "https://www.youtube.com/embed/RECRuY8L3FQ"
+      }
     }
   }
   render() {
@@ -53,7 +57,7 @@ class App extends Component {
     }
     return (
       <div style={styles} className="App">
-        <MainContainer></MainContainer>
+        <MainContainer title={this.state.currentlyPlaying.title} videoSource={this.state.currentlyPlaying.videoSource}></MainContainer>
         <SearchContainer videos={this.state.videos}></SearchContainer>
         <KeybindContainer keybinds={this.state.keybinds}></KeybindContainer>
       </div>

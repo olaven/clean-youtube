@@ -9,7 +9,9 @@ class SearchContainer extends Component {
                 <InputBox></InputBox>
                 <br/>
                 {this.props.videos.map( (video) => {
-                    <VideoBox title={video.title} imageSource={video.imageSource}></VideoBox>
+                    <VideoBox 
+                        title={video.title} imageSource={video.imageSource}>
+                    </VideoBox>
                 })}
             </div>
         );

@@ -7,7 +7,7 @@ class MainContainer extends Component {
         return (
             <div className="VideoBox">
                 <GUIBox></GUIBox>
-                <VideoBox></VideoBox>
+                <VideoBox videoSource={this.props.videoSource}></VideoBox>
             </div>
         );
     }
