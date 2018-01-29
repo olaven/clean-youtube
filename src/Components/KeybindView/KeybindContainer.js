@@ -6,7 +6,7 @@ class KeybindContainer extends Component {
         return (
             <div className="KeybindContainer">
                 {this.props.keybinds.map(keybind => {
-                    <KeybindBox action={keybind.action} keybind={keybind.keybind}></KeybindBox>
+                    return <KeybindBox action={keybind.action} keybind={keybind.keybind}></KeybindBox>
                 })}
             </div>
         );
