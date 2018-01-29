@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import KeybindBox from './KeybindBox';
 
 class KeybindContainer extends Component {
-    handleKeyBindBoxes(){
-        return ( // placeholder
-            <KeybindBox action="toggle search" keybind="cmd + o"></KeybindBox>,
-            <KeybindBox action="toggle GUI" keybind="cmd + g"></KeybindBox>,
-            <KeybindBox action="select" keybind="enter"></KeybindBox>,
-            <KeybindBox action="next" keybind="tab"></KeybindBox>
-        )
-    }
     render() {
         return (
-            <div>
-                {this.handleKeyBindBoxes()}
+            <div className="KeybindContainer">
+                {this.props.keybinds.map(keybind => {
+                    <KeybindBox action={keybind.action} keybind={keybind.keybind}></KeybindBox>
+                })}
             </div>
         );
     }
