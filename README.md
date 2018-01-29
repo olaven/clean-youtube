@@ -12,4 +12,4 @@ __This app__ is supposed to be a small step in the right direction. For me and h
 * Minimalistic and _Optional_ GUI  
 
 ## More Info 
-This app is build (https://reactjs.org/)[ReactJS], as my first project with this technology. Therefore, it will probably not be perfect at first attempt. If you want to make it better, just create a pull request, critisize, comment, contribute to conversations and everything else. All help and feedback is both welcomed and encouraged 🐶 
+This app is build (ReactJS)[https://reactjs.org/], as my first project with this technology. Therefore, it will probably not be perfect at first attempt. If you want to make it better, just create a pull request, critisize, comment, contribute to conversations and everything else. All help and feedback is both welcomed and encouraged 🐶 
