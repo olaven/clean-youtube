@@ -1,3 +1,4 @@
 # clean-youtube 
 
-* More info soon
+## Distractions < Learning 
+ 
