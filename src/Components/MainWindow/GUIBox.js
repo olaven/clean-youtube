@@ -4,8 +4,8 @@ class GUIBox extends Component {
     render() {
         return (
             <div className="GUIBox">
-                <button className="GUI-button">GUI-Button</button>
-                <button className="Keybinds-button">keybinds-Button</button>
+                <button className="Search-button">Toggle Search</button>
+                <button className="Keybinds-button">View Keybinds</button>
             </div>
         );
     }

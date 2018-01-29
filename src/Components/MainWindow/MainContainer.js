@@ -5,11 +5,20 @@ import GUIBox from "./GUIBox";
 class MainContainer extends Component {
     render() {
         return (
-            <div className="VideoBox">
+            <div className="MainContainer">
                 <GUIBox></GUIBox>
                 <VideoBox videoSource={this.props.videoSource}></VideoBox>
             </div>
         );
+    }
+
+    enableSearchView(){
+        console.log("serach");
+        
+    }
+    enableKeybindView(){
+        console.log("keybind");
+        
     }
 }
 
