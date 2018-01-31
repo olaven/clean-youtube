@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import VideoBox from './VideoBox';
+import VideoInfo from './VideoInfo';
 import InputBox from './InputBox';
 
 class SearchContainer extends Component {
@@ -9,7 +9,7 @@ class SearchContainer extends Component {
                 <InputBox></InputBox>
                 <br/>
                 {this.props.videos.map( (video) => {
-                    return <VideoBox title={video.title} imageSource={video.imageSource} key={video.title}></VideoBox>
+                    return <VideoInfo title={video.title} imageSource={video.imageSource} key={video.title}></VideoInfo>
                 })}
             </div>
         );

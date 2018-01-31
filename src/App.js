@@ -5,11 +5,15 @@ import SearchContainer from "./Components/SearchView/SearchContainer"
 import MainContainer from './Components/MainWindow/MainContainer';
 import KeybindContainer from "./Components/KeybindView/KeybindContainer"
 
-
 class App extends Component {
+
   constructor() {
     super(); 
     this.state = {//Mock data
+      views : {
+        SearchView : true,
+        KeybindView : false 
+      },
       videos : [ //search results
         {
           title: "Paintings",
@@ -30,6 +34,10 @@ class App extends Component {
       keybinds : [
         {
           action : "toggle search", 
+          keybind : "cmd + j"
+        },
+        {
+          action : "view keybinds",
           keybind : "cmd + k"
         },
         {
@@ -51,15 +59,81 @@ class App extends Component {
       }
     }
   }
+  //FIXME: Need an alternative to componentWillMount that updates often enough to register keypresses
+  componentWillMount() {
+    //keep track of what keys are pressed -> filled in at handleKeyDown()
+    let keymap = [];
+    //handle keypresses
+    window.onkeydown = window.onkeyup = (event) => {
+      keymap[event.keyCode] = (event.type === "keydown");
+
+      //cmd + j = toggle search view 
+      if (keymap[91] && keymap[74]) {
+        this.toggleSearchView();
+      }
+      //cmd + k = toggle search view 
+      if (keymap[91] && keymap[75]) {
+        this.toggleKeybindView();
+      }
+    }
+  }
+  //passed: App -> MainContainer -> GUIBox
+  toggleSearchView() {
+    this.setState({
+      views : {
+        SearchView : !this.state.views.SearchView,
+        KeyBindView : false    
+      }
+    });      
+  }
+  toggleKeybindView() {
+    this.setState({
+      views : {
+        SearchView : false,
+        KeybindView : !this.state.views.KeybindView
+      }
+    }) 
+  }
+  //keep track of what keys are pressed -> filled in at handleKeyDown()
+  keymap = []; 
+  //handle keypresses
+  handleKeyDown(event) {
+    this.keymap[event.keyCode] = (event.type === "keydown"); //true if currently down    
+    
+    //cmd + j -> search
+    if(this.keymap[74] && this.keymap[91]) {
+      this.toggleSearchView();      
+    }
+    //cmd + k -> view keybinds
+    if(this.keymap[75] && this.keymap[91]) {
+      this.toggleKeybindView(); 
+    }
+  }
+  //return SearchView and/or KeyBindView dependig on wether they are activated
+  handleViews(){
+    if (this.state.views.SearchView){
+      return <SearchContainer videos={this.state.videos}></SearchContainer>
+    }
+    if (this.state.views.KeybindView){
+      return <KeybindContainer keybinds={this.state.keybinds}></KeybindContainer>
+    }
+  }
+  
   render() {
     let styles = {
       
     }
     return (
-      <div style={styles} className="App">
-        <MainContainer title={this.state.currentlyPlaying.title} videoSource={this.state.currentlyPlaying.videoSource}></MainContainer>
-        <SearchContainer videos={this.state.videos}></SearchContainer>
-        <KeybindContainer keybinds={this.state.keybinds}></KeybindContainer>
+      <div style={styles} className="App" onKeyDown={this.handleKeyDown.bind(this)} onKeyUp={this.handleKeyDown.bind(this)}>;
+      }}>
+        <MainContainer 
+          title={this.state.currentlyPlaying.title} 
+          videoSource={this.state.currentlyPlaying.videoSource}
+          //"bind()" makes "this" in function always refer to "App.js"
+          toggleSearchView={this.toggleSearchView.bind(this)}
+          toggleKeybindView={this.toggleKeybindView.bind(this)}>
+        </MainContainer>
+        {this.handleViews()}
       </div>
     );
   }

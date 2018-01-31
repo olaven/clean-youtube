@@ -6,19 +6,13 @@ class MainContainer extends Component {
     render() {
         return (
             <div className="MainContainer">
-                <GUIBox></GUIBox>
+                <GUIBox 
+                    toggleSearchView={this.props.toggleSearchView}
+                    toggleKeybindView={this.props.toggleKeybindView}>
+                </GUIBox>
                 <VideoBox videoSource={this.props.videoSource}></VideoBox>
             </div>
         );
-    }
-
-    enableSearchView(){
-        console.log("serach");
-        
-    }
-    enableKeybindView(){
-        console.log("keybind");
-        
     }
 }
 
