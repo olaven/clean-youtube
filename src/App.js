@@ -1,9 +1,20 @@
+//importing yarn packages 
+//-youtube-search (abstraction for api)
+import searchYoutube from 'youtube-search';
+
 import React, { Component } from 'react';
 //importing components from.. 
-//SearchView: 
+//-SearchView: 
 import SearchContainer from "./Components/SearchView/SearchContainer" 
 import MainContainer from './Components/MainWindow/MainContainer';
 import KeybindContainer from "./Components/KeybindView/KeybindContainer"
+
+//youtube-API-options
+let opts = {
+  maxResults: 20,
+  key: process.env.REACT_APP_SEARCH_API_KEY //ADD YOUR OWN KEY
+};
+
 
 class App extends Component {
   keymap = []; 
@@ -15,27 +26,8 @@ class App extends Component {
         KeybindView : false 
       },
       videos : [ //search results
-        {
-          title: "Paintings",
-          ///*By Xanthous Onyx (Own work) [GFDL (http://www.gnu.org/copyleft/fdl.html) or CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons*/
-          imageSource:  "https://upload.wikimedia.org/wikipedia/commons/3/39/Oil_color%28Cadmium_Red_Medium_and_Pyrrol_Crimson%29.jpg",
-          //Episode #96 of Hello Internet
-          videoSource: "https://www.youtube.com/watch?v=-ydhwvvMvYo"
-        }, 
-        {
-          title: "Fish around the world!",
-          //By Lars Steffens (Fisch) [CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)], via Wikimedia Commons
-          imageSource: "https://upload.wikimedia.org/wikipedia/commons/6/65/Fisch_%289331263926%29.jpg", 
-          //Game Score Fanfare -> Yoshi's Halcyon Music 
-          videoSource: "https://www.youtube.com/watch?v=JzSfTECTfIQ"
-        }, 
-        {
-          title: "Dogs eye", 
-          //By user:Przykuta, corrected by Pharaoh Hound (Husky oczy 897.jpg) [GFDL (http://www.gnu.org/copyleft/fdl.html), CC-BY-SA-3.0 (http://creativecommons.org/licenses/by-sa/3.0/) or CC BY 2.5 (http://creativecommons.org/licenses/by/2.5)], via Wikimedia Commons
-          imageSource: "https://upload.wikimedia.org/wikipedia/commons/8/8d/Siberian_Husky_heterchromia_edit.jpg",
-          //Train Driver's View -> Awesome Train Journey on Snow go through 1 Tunnel
-          videoSource: "https://www.youtube.com/watch?v=eIw3c7WZvgE"
-        }
+        //obejct -> .title, .imageSource, .videoSource
+        
       ],
       keybinds : [
         {
@@ -60,8 +52,8 @@ class App extends Component {
         }
       ], 
       currentlyPlaying : {
-        title: "The Design of Breath of The Wild's Great Plateau",
-        videoSource: "https://www.youtube.com/embed/RECRuY8L3FQ"
+        title: "Search for something",
+        videoSource: ""
       }
     }
   }
@@ -103,15 +95,45 @@ class App extends Component {
     }
   }
 
+  //regular YT-URL -> embed-friendly-URL
+  toEmbedUrl(url) {
+    return (url.replace("watch?v=", "/embed/"))
+  }
+
   changeVideo(title, videoSource) {
     this.setState({
       currentlyPlaying: {
         title: title,
-        videoSource: videoSource
+        videoSource: this.toEmbedUrl(videoSource)
       }
     });
-    console.log(this.state.currentlyPlaying);
+    console.log(this.state.currentlyPlaying.videoSource);
   }
+  //HACK: this solution is not pretty if it is followed
+  getSearchResults(input, callback){
+    searchYoutube(input, opts, function (err, results) {      
+      if (err) return console.log(err); 
+      callback(results); 
+    });  
+  }
+  addSearchResultsToState(results){
+    //if not video -> remove
+    results = results.filter(result => {
+      return (result.kind === "youtube#video"); 
+    })
+    
+    //change state of video-list
+    this.setState({
+      videos : results.map(result => {
+        return {
+          title : result.title,
+          imageSource : result.thumbnails.default,
+          videoSource : result.link
+        }
+      }) 
+    })
+  }
+
 
   //return SearchView and/or KeyBindView dependig on wether they are activated
   handleViews(){
@@ -119,7 +141,10 @@ class App extends Component {
       return (
         <SearchContainer 
           videos={this.state.videos}
-          changeVideo={this.changeVideo.bind(this)}>
+          changeVideo={this.changeVideo.bind(this)}
+          getSearchResults={this.getSearchResults.bind(this)}
+          addSearchResultsToState={this.addSearchResultsToState.bind(this)}
+        >
         </SearchContainer>
       );
     }
@@ -133,17 +158,15 @@ class App extends Component {
   }
   
   render() {
-    let styles = {
-      
-    }
     return (
-      <div style={styles} className="App" onKeyDown={this.handleKeyDown.bind(this)} onKeyUp={this.handleKeyDown.bind(this)}>;
+      <div className="App" onKeyDown={this.handleKeyDown.bind(this)} onKeyUp={this.handleKeyDown.bind(this)}>;
         <MainContainer 
           title={this.state.currentlyPlaying.title} 
           videoSource={this.state.currentlyPlaying.videoSource}
           //"bind()" makes "this" in function always refer to "App.js"
           toggleSearchView={this.toggleSearchView.bind(this)}
-          toggleKeybindView={this.toggleKeybindView.bind(this)}>
+          toggleKeybindView={this.toggleKeybindView.bind(this)}
+        >
         </MainContainer>
         {this.handleViews()}
       </div>

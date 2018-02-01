@@ -6,7 +6,10 @@ class SearchContainer extends Component {
     render() {
         return (            
             <div className="SearchContainer">
-                <InputBox></InputBox>
+                <InputBox
+                    getSearchResults={this.props.getSearchResults}
+                    addSearchResultsToState={this.props.addSearchResultsToState}
+                ></InputBox>
                 <br/>
                 {this.props.videos.map( (video) => {
                     return (
