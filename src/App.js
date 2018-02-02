@@ -1,11 +1,11 @@
-//importing yarn packages 
+//importing yarn packages
 //-youtube-search (abstraction for api)
 import searchYoutube from 'youtube-search';
 
 import React, { Component } from 'react';
-//importing components from.. 
-//-SearchView: 
-import SearchContainer from "./Components/SearchView/SearchContainer" 
+//importing components from..
+//-SearchView:
+import SearchContainer from "./Components/SearchView/SearchContainer"
 import MainContainer from './Components/MainWindow/MainContainer';
 import KeybindContainer from "./Components/KeybindView/KeybindContainer"
 
@@ -17,94 +17,82 @@ let opts = {
 
 
 class App extends Component {
-  keymap = [];  
+  keymap = {};
   constructor() {
-    super(); 
-    this.state = {
-      views : {
-        SearchView : true,
-        KeybindView : false 
+    super();
+    this.state = {//Mock data
+      views: {
+        SearchView: true,
+        KeybindView: false
       },
-      videos : [ //search results
+      videos: [ //search results
         //obejct -> .title, .imageSource, .videoSource
+
       ],
-      keybinds : [
+      keybinds: [
         {
-          action : "toggle search", 
-          keybind : "cmd + j"
+          action: "toggle search",
+          keybind: "a + u"
         },
         {
-          action : "view keybinds",
-          keybind : "cmd + k"
+          action: "view keybinds",
+          keybind: "a + i"
         },
         {
           action: "toggle GUI",
-          keybind: "cmd + b"
-        },
-        {
-          action: "select",
-          keybind: "enter"
-        },
-        {
-          action: "next",
-          keybind: "tab"
+          keybind: "a + o"
         }
-      ], 
-      currentlyPlaying : {
+      ],
+      currentlyPlaying: {
         title: "Search for something",
         videoSource: ""
-      }, 
-      isGUIEnabled : true
+      },
+      isGUIEnabled: true
     }
   }
 
   componentWillMount() {
-    document.addEventListener("keydown", this.handleKeyDown.bind(this)); 
-    document.addEventListener("keyup", this.handleKeyUp.bind(this)); 
+    document.addEventListener("keydown", this.handleKeyEvent.bind(this));
+    document.addEventListener("keyup", this.handleKeyEvent.bind(this));
   }
 
   //passed: App -> MainContainer -> GUIBox
-  toggleGUI(){
-    this.setState({isGUIEnabled : !this.state.isGUIEnabled}); 
+  toggleGUI() {
+    this.setState({ isGUIEnabled: !this.state.isGUIEnabled });
   }
   toggleSearchView() {
     this.setState({
-      views : {
-        SearchView : !this.state.views.SearchView,
-        KeyBindView : false    
+      views: {
+        SearchView: !this.state.views.SearchView,
+        KeyBindView: false
       }
-    });      
+    });
   }
   toggleKeybindView() {
     this.setState({
-      views : {
-        SearchView : false,
+      views: {
+        SearchView: false,
         KeybindView: !this.state.views.KeybindView
       }
-    }) 
+    })
   }
 
   //handle keypresses
-  handleKeyDown(event) {    
-    this.keymap[event.keyCode] = true       
-    //cmd + j -> toggle search
-    if (this.keymap[74] && (this.keymap[91] || this.keymap[18])) {
-      console.log("toggleSearch");
+  handleKeyEvent(event) {
+    this.keymap[event.keyCode] = (event.type === "keydown"); //true if currently down
+    
+    //a + u -> toggle search
+    if (this.keymap[65] && this.keymap[85]) {
       this.toggleSearchView();
     }
-    //cmd + k -> toggle keybinds
-    if (this.keymap[75] && (this.keymap[91] || this.keymap[18])) {
-      console.log("toggleKeybind");
+    //a + i -> toggle keybinds
+    if (this.keymap[65] && this.keymap[73]) {
       this.toggleKeybindView();
     }
-    //cmd + b -> toggle GUI
-    if (this.keymap[66] && (this.keymap[91] || this.keymap[18])) {
+    //a + o -> toggle GUI
+    if (this.keymap[65] && this.keymap[79]) {
       this.toggleGUI();
     }
-  }
-  handleKeyUp(event){
-    console.log("up");
-    this.keymap[event.keyCode] = false; 
   }
 
   //regular YT-URL -> embed-friendly-URL
@@ -121,37 +109,37 @@ class App extends Component {
     });
   }
   //HACK: this solution is not pretty if it is followed
-  getSearchResults(input, callback){
-    searchYoutube(input, opts, function (err, results) {      
-      if (err) return console.log(err); 
-      callback(results); 
-    });  
+  getSearchResults(input, callback) {
+    searchYoutube(input, opts, function (err, results) {
+      if (err) return console.log(err);
+      callback(results);
+    });
   }
-  addSearchResultsToState(results){
+  addSearchResultsToState(results) {
     //if not video -> remove
     results = results.filter(result => {
-      return (result.kind === "youtube#video"); 
+      return (result.kind === "youtube#video");
     })
-    
+
     //change state of video-list
 
     this.setState({
-      videos : results.map(result => {
+      videos: results.map(result => {
         return {
-          title : result.title,
-          imageSource : result.thumbnails.default.url,
-          videoSource : result.link
+          title: result.title,
+          imageSource: result.thumbnails.default.url,
+          videoSource: result.link
         }
-      }) 
+      })
     })
   }
 
 
   //return SearchView and/or KeyBindView dependig on wether they are activated
-  handleViews(){
-    if (this.state.views.SearchView){
+  handleViews() {
+    if (this.state.views.SearchView) {
       return (
-        <SearchContainer 
+        <SearchContainer
           videos={this.state.videos}
           changeVideo={this.changeVideo.bind(this)}
           getSearchResults={this.getSearchResults.bind(this)}
@@ -160,20 +148,20 @@ class App extends Component {
         </SearchContainer>
       );
     }
-    if (this.state.views.KeybindView){
+    if (this.state.views.KeybindView) {
       return (
-        <KeybindContainer 
+        <KeybindContainer
           keybinds={this.state.keybinds}>
         </KeybindContainer>
       );
     }
   }
-  
+
   render() {
     return (
-      <div className="App">; 
-        <MainContainer 
-          title={this.state.currentlyPlaying.title} 
+      <div className="App">;
+        <MainContainer
+          title={this.state.currentlyPlaying.title}
           videoSource={this.state.currentlyPlaying.videoSource}
           isGUIEnabled={this.state.isGUIEnabled}
           //"bind()" makes "this" in function always refer to "App.js"
