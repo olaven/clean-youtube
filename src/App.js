@@ -17,17 +17,16 @@ let opts = {
 
 
 class App extends Component {
-  keymap = {};  
+  keymap = [];  
   constructor() {
     super(); 
-    this.state = {//Mock data
+    this.state = {
       views : {
         SearchView : true,
         KeybindView : false 
       },
       videos : [ //search results
         //obejct -> .title, .imageSource, .videoSource
-        
       ],
       keybinds : [
         {
@@ -60,8 +59,8 @@ class App extends Component {
   }
 
   componentWillMount() {
-    document.addEventListener("keydown", this.handleKeyEvents.bind(this)); 
-    document.addEventListener("keyup", this.handleKeyEvents.bind(this)); 
+    document.addEventListener("keydown", this.handleKeyDown.bind(this)); 
+    document.addEventListener("keyup", this.handleKeyUp.bind(this)); 
   }
 
   //passed: App -> MainContainer -> GUIBox
@@ -86,22 +85,26 @@ class App extends Component {
   }
 
   //handle keypresses
-  handleKeyEvents(event) {    
-    this.keymap[event.keyCode] = (event.type === "keydown"); //true if currently down        
+  handleKeyDown(event) {    
+    this.keymap[event.keyCode] = true       
     //cmd + j -> toggle search
-    if(this.keymap[74] && this.keymap[91]) {
+    if (this.keymap[74] && (this.keymap[91] || this.keymap[18])) {
       console.log("toggleSearch");
-      this.toggleSearchView();      
+      this.toggleSearchView();
     }
-    //cmd + k -> toggle keybinds    
-    if(this.keymap[75] && this.keymap[91]) {
+    //cmd + k -> toggle keybinds
+    if (this.keymap[75] && (this.keymap[91] || this.keymap[18])) {
       console.log("toggleKeybind");
-      this.toggleKeybindView(); 
+      this.toggleKeybindView();
     }
     //cmd + b -> toggle GUI
-    if(this.keymap[66] && this.keymap[91]) {
-      this.toggleGUI(); 
+    if (this.keymap[66] && (this.keymap[91] || this.keymap[18])) {
+      this.toggleGUI();
     }
+  }
+  handleKeyUp(event){
+    console.log("up");
+    this.keymap[event.keyCode] = false; 
   }
 
   //regular YT-URL -> embed-friendly-URL
