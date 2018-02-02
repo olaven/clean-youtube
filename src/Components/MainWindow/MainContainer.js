@@ -3,13 +3,22 @@ import VideoBox from "./VideoBox";
 import GUIBox from "./GUIBox"; 
 
 class MainContainer extends Component {
+    renderGUIIfEnabled(){
+        if(this.props.isGUIEnabled){
+            return (
+                <GUIBox
+                    toggleSearchView={this.props.toggleSearchView}
+                    toggleKeybindView={this.props.toggleKeybindView}
+                    toggleGUI={this.props.toggleGUI}
+                >
+                </GUIBox>
+            )
+        }
+    }
     render() {
         return (
             <div className="MainContainer">
-                <GUIBox 
-                    toggleSearchView={this.props.toggleSearchView}
-                    toggleKeybindView={this.props.toggleKeybindView}>
-                </GUIBox>
+                {this.renderGUIIfEnabled()}
                 <VideoBox videoSource={this.props.videoSource}></VideoBox>
             </div>
         );

@@ -17,7 +17,7 @@ let opts = {
 
 
 class App extends Component {
-  keymap = []; 
+  keymap = [];  
   constructor() {
     super(); 
     this.state = {//Mock data
@@ -40,7 +40,7 @@ class App extends Component {
         },
         {
           action: "toggle GUI",
-          keybind: "cmd + g"
+          keybind: "cmd + b"
         },
         {
           action: "select",
@@ -54,16 +54,20 @@ class App extends Component {
       currentlyPlaying : {
         title: "Search for something",
         videoSource: ""
-      }
+      }, 
+      isGUIEnabled : true
     }
   }
 
   componentWillMount() {
-    document.addEventListener("keydown", this.handleKeyDown.bind(this)); 
-    document.addEventListener("keyup", this.handleKeyDown.bind(this)); 
+    document.addEventListener("keydown", this.handleKeyEvents.bind(this)); 
+    document.addEventListener("keyup", this.handleKeyEvents.bind(this)); 
   }
 
   //passed: App -> MainContainer -> GUIBox
+  toggleGUI(){
+    this.setState({isGUIEnabled : !this.state.isGUIEnabled}); 
+  }
   toggleSearchView() {
     this.setState({
       views : {
@@ -72,7 +76,6 @@ class App extends Component {
       }
     });      
   }
-
   toggleKeybindView() {
     this.setState({
       views : {
@@ -83,15 +86,20 @@ class App extends Component {
   }
 
   //handle keypresses
-  handleKeyDown(event) {    
+  handleKeyEvents(event) {    
     this.keymap[event.keyCode] = (event.type === "keydown"); //true if currently down        
     //cmd + j -> search
     if(this.keymap[74] && this.keymap[91]) {
+      console.log("toggleSearch");
       this.toggleSearchView();      
     }
-    //cmd + k -> view keybinds
+    //cmd + k -> view keybinds    
     if(this.keymap[75] && this.keymap[91]) {
+      console.log("toggleKeybind");
       this.toggleKeybindView(); 
+    }
+    if(this.keymap[66] && this.keymap[91]) {
+      this.toggleGUI(); 
     }
   }
 
@@ -123,11 +131,12 @@ class App extends Component {
     })
     
     //change state of video-list
+
     this.setState({
       videos : results.map(result => {
         return {
           title : result.title,
-          imageSource : result.thumbnails.default,
+          imageSource : result.thumbnails.default.url,
           videoSource : result.link
         }
       }) 
@@ -159,13 +168,15 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App" onKeyDown={this.handleKeyDown.bind(this)} onKeyUp={this.handleKeyDown.bind(this)}>;
+      <div className="App">; 
         <MainContainer 
           title={this.state.currentlyPlaying.title} 
           videoSource={this.state.currentlyPlaying.videoSource}
+          isGUIEnabled={this.state.isGUIEnabled}
           //"bind()" makes "this" in function always refer to "App.js"
           toggleSearchView={this.toggleSearchView.bind(this)}
           toggleKeybindView={this.toggleKeybindView.bind(this)}
+          toggleGUI={this.toggleGUI.bind(this)}
         >
         </MainContainer>
         {this.handleViews()}
