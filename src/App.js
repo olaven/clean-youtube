@@ -88,16 +88,17 @@ class App extends Component {
   //handle keypresses
   handleKeyEvents(event) {    
     this.keymap[event.keyCode] = (event.type === "keydown"); //true if currently down        
-    //cmd + j -> search
+    //cmd + j -> toggle search
     if(this.keymap[74] && this.keymap[91]) {
       console.log("toggleSearch");
       this.toggleSearchView();      
     }
-    //cmd + k -> view keybinds    
+    //cmd + k -> toggle keybinds    
     if(this.keymap[75] && this.keymap[91]) {
       console.log("toggleKeybind");
       this.toggleKeybindView(); 
     }
+    //cmd + b -> toggle GUI
     if(this.keymap[66] && this.keymap[91]) {
       this.toggleGUI(); 
     }
