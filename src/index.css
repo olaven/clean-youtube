@@ -23,8 +23,17 @@ body {
   z-index: -1; 
 }
 .GUIBox {
+  position: absolute;
+  top: 0; 
   width: 100%; 
-  background-color: purple; 
+  height: 2.5vw; 
+  background-color: rgb(43, 19, 19); 
+}
+.GUIBox button {
+  border-style: none; 
+  margin-left: 2.5vw; 
+  margin-top: 1vh; 
+  background-color: rgba(255,255,255, 0.5)
 }
 /*END, MainWindow*/
 
@@ -32,15 +41,15 @@ body {
 .SearchContainer, .KeybindContainer {
   position: absolute;
   
-  width: 30vw;
-  height: 30vh;
-  left: 35vw; 
+  width: 40vw;
+  height: 50vh;
+  left: 30vw; 
   top: 15vh;
 
   overflow: scroll;   
   margin: auto;
 
-  background-color: rgb(79, 79, 206); 
+  background-color: rgb(169, 71, 71); 
 }
 
 /*SearchContainer*/

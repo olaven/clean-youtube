@@ -17,7 +17,7 @@ let opts = {
 
 
 class App extends Component {
-  keymap = [];  
+  keymap = {};  
   constructor() {
     super(); 
     this.state = {//Mock data
@@ -115,7 +115,6 @@ class App extends Component {
         videoSource: this.toEmbedUrl(videoSource)
       }
     });
-    console.log(this.state.currentlyPlaying.videoSource);
   }
   //HACK: this solution is not pretty if it is followed
   getSearchResults(input, callback){

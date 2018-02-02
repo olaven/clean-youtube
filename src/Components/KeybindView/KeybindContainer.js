@@ -8,6 +8,13 @@ class KeybindContainer extends Component {
                 {this.props.keybinds.map(keybind => {
                     return <KeybindBox action={keybind.action} keybind={keybind.keybind} key={keybind.action}></KeybindBox>
                 })}
+
+                <p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <u>Made by: <a href="https://github.com/olaven">@olaven</a></u>
+                </p>
             </div>
         );
     }
