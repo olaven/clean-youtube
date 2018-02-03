@@ -1,9 +1,0 @@
-directories:
-  output: dist
-  buildResources: assets
-files:
-  - build/**/*
-  - node_modules/**/*
-extraMetadata:
-  main: build/electron.js
-electronVersion: 1.7.12
