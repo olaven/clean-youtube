@@ -52,8 +52,15 @@ class App extends Component {
   }
 
   componentWillMount() {
+    //keep track of what keys are being pressed 
     document.addEventListener("keydown", this.handleKeyEvent.bind(this));
     document.addEventListener("keyup", this.handleKeyEvent.bind(this));
+    //keep keybinds available -> turn focus away from video 
+    setInterval(()=>{
+      document.getElementById("App").focus(); 
+      console.log("hi");
+      
+    }, 500);
   }
 
   //passed: App -> MainContainer -> GUIBox
@@ -122,7 +129,6 @@ class App extends Component {
     })
 
     //change state of video-list
-
     this.setState({
       videos: results.map(result => {
         return {
@@ -159,7 +165,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">;
+      <div className="App" id="App">;
         <MainContainer
           title={this.state.currentlyPlaying.title}
           videoSource={this.state.currentlyPlaying.videoSource}

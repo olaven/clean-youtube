@@ -29,6 +29,8 @@ __The browser__ should now open. However, if you try to search something, the co
 
 __If you__ refresh the app, search should work 🐶 If you run into any trouble, contact me and I will do my best to help you out 👍
 
+__It is__ also possible to build an electron-app to run locally on your machine by running ```yarn electron-pack ```. My understanding of this is limited right now, your build should appear in the /dist-directory. Thanks to @Kitze for [this](https://medium.com/@kitze/%EF%B8%8F-from-react-to-an-electron-app-ready-for-production-a0468ecb1da3) for this helpful guide!
+
 
 
 ## More Info 
