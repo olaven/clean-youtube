@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: rgb(57, 57, 130); 
+  background-color: rgb(92, 92, 100); 
 }
 
 
@@ -27,13 +27,13 @@ body {
   top: 0; 
   width: 100%; 
   height: 2.5vw; 
-  background-color: rgb(126, 52, 121); 
+  background-color: rgb(68, 68, 68); 
 }
 .GUIBox button {
   border-style: none; 
   margin-left: 2.5vw; 
   margin-top: 1vh; 
-  background-color: rgba(255,255,255, 0.5);
+  background-color: rgb(255, 255, 255);
 
 
   background: transparent;
@@ -64,7 +64,8 @@ body {
   border-bottom-right-radius: 10%; 
   border-bottom-left-radius: 10%; 
 
-  background-color: rgb(169, 71, 71); 
+  background-color: rgb(129, 129, 129); 
+  color: rgb(219, 219, 219); 
 }
 
 /*SearchContainer*/
@@ -108,7 +109,7 @@ body {
   margin-left: 1.75vw;
   margin-right: 1vw; 
   padding: 1vh;  
-  color: rgb(118, 156, 189);
+  color: rgba(56, 75, 92, 0.747);
 
   background-color: rgba(0, 0, 0, 0.646); 
 }
