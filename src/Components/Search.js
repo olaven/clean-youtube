@@ -29,7 +29,7 @@ class Search extends Component {
                 key={resultBox.id} 
                 title={resultBox.title} 
                 image={resultBox.thumbnails.default.url} 
-                link={resultBox.link}
+                link={toEmbedUrl(resultBox.link)}
                 handleClick={this.props.changeVideo}
             />
         }); 
@@ -83,3 +83,10 @@ VideoBox.propTypes =
 
 
 export default Search; 
+
+
+//regular YT-URL -> embed-friendly-URL
+const toEmbedUrl = (url) => 
+{
+    return (url.replace("watch?v=", "/embed/"))
+}
