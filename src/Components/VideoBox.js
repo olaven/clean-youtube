@@ -23,7 +23,8 @@ const containerStyle =
     margin : "20px", 
     padding: "10px",
     border : "solid", 
-    textAlign : "center"
+    textAlign : "center", 
+    cursor : "pointer"
 }
 
 VideoBox.propTypes = 

@@ -11,6 +11,12 @@ import Search from './Components/Search';
 
 class App extends Component
 {
+  componentWillMount()
+  {
+    this.setState({
+      currentVideo : "" 
+    })
+  }
   /**
    * Called from subcomponents.
    * @param {string} term to search for 
@@ -28,11 +34,22 @@ class App extends Component
       callback(results); 
     }); 
   }
+  /**
+   * Changes the displayed video in main window
+   * Called from subcomponents
+   * @param {string} source source of video
+   */
+  changeVideo(source)
+  {
+    this.setState({
+      currentVideo : source
+    })
+  }
   render()
   {
     return <div className="App">
-      <Search handleSearch={this.search.bind(this)}/>
-      <iframe></iframe>
+      <Search handleSearch={this.search.bind(this)} changeVideo={this.changeVideo.bind(this)}/>
+      <iframe className="videoFrame" src={this.state.currentVideo}></iframe>
     </div>
   }
 }
