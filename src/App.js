@@ -14,24 +14,22 @@ class App extends Component
   /**
    * Called from subcomponents.
    * @param {string} term to search for 
+   * @param {function} callback called with 'results' as parameters
    */
-  search(term)
+  search(term, callback)
   {
     const opts = {
       maxResults : 10, 
       key: 'AIzaSyAoNtNykGJF461BTg5uhI8P4c1UvgB93ho'
     }
-    searchYoutube('jsconf', opts, (err, results) => 
+    searchYoutube(term, opts, (err, results) => 
     {
       if(err) return console.log(err); 
-      console.dir(results); 
+      callback(results); 
     }); 
   }
   render()
   {
-    console.log(process.env.YOUTUBE_API_KEY); 
-    console.log(process.env); 
-
     return <div className="App">
       <Search handleSearch={this.search.bind(this)}/>
       <iframe></iframe>

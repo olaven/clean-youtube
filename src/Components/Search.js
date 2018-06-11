@@ -15,13 +15,7 @@ class Search extends Component {
         this.setState(
             {
                 resultBoxes : 
-                [
-                    {
-                        title : "testvid", 
-                        image: "https://www.elastic.co/assets/bltada7771f270d08f6/enhanced-buzz-1492-1379411828-15.jpg", 
-                        id : 123
-                    }                   
-                ],
+                [],
                 currentInput : ''  
             }
         ); 
@@ -30,7 +24,8 @@ class Search extends Component {
     {
         return this.state.resultBoxes.map(resultBox => 
         {
-            return <ResultBox key={resultBox.id} title={resultBox.title} image={resultBox.image}/>
+            console.log(resultBox); 
+            return <ResultBox key={resultBox.id} title={resultBox.title} image={resultBox.thumbnails.default.url} link={resultBox.link}/>
         }); 
     }
     handleChange(event)
@@ -49,7 +44,13 @@ class Search extends Component {
                 style={boxStyle}
                 onChange={this.handleChange.bind(this)}
                 onKeyDown={() => {
-                    this.props.handleSearch(this.state.currentInput)
+                    this.props.handleSearch(this.state.currentInput, (results) => 
+                    {
+                        console.log(results); 
+                        this.setState({
+                            resultBoxes : results
+                        })
+                    }); 
                 }}
             >
             </input>
