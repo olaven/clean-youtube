@@ -17,7 +17,8 @@ class Search extends Component {
             {
                 resultBoxes : 
                 [],
-                currentInput : ''  
+                currentInput : '', 
+                resultSectionVisible : true 
             }
         ); 
     }
@@ -34,19 +35,45 @@ class Search extends Component {
             />
         }); 
     }
+    renderResultSection()
+    {
+        if(this.state.resultSectionVisible)
+        {
+            return <div className="searchResults">
+                {this.renderVideoBoxes()}
+            </div>;
+        }
+    }
     handleChange(event)
     {
         const value = event.target.value; 
         this.setState({
-            currentInput : value
+            currentInput : value, 
+            resultSectionVisible : true
         })
     }
+    handleKeyDown(event)
+    {
+        // escape key 
+        if(event.keyCode === 27)
+        {
+            this.setState({
+                resultSectionVisible : false
+            }); 
+        }
+    }
     render() {
-        return <div className="topBar" className="searchContainer">
+        return <div className="topBar" className="searchContainer" onKeyDown={this.handleKeyDown.bind(this)}>
             <input  
                 className="searchInput" 
                 type="text" 
                 onChange={this.handleChange.bind(this)}
+                onFocus={() => 
+                {
+                    this.setState({
+                        resultSectionVisible : true
+                    })
+                }}
                 onKeyDown={() => {
                     // calls the search method in App.js, with the callback specified below 
                     this.props.handleSearch(this.state.currentInput, (results) => 
@@ -68,9 +95,7 @@ class Search extends Component {
                 }}
             >
             </input>
-            <div className="searchResults">
-                {this.renderVideoBoxes()}
-            </div>
+            {this.renderResultSection()}
         </div>
     }
 }
