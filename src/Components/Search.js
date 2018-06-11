@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"; 
 
-
 // Components 
-import ResultBox from './ResultBox';
+import VideoBox from './VideoBox';
+
+import './Search.css'; 
 
 /**
  * Is a bar across the top of the screen, for searching. 
@@ -20,12 +21,17 @@ class Search extends Component {
             }
         ); 
     }
-    renderResultBoxes()
+    renderVideoBoxes()
     {
         return this.state.resultBoxes.map(resultBox => 
         {
-            console.log(resultBox); 
-            return <ResultBox key={resultBox.id} title={resultBox.title} image={resultBox.thumbnails.default.url} link={resultBox.link}/>
+            return <VideoBox 
+                key={resultBox.id} 
+                title={resultBox.title} 
+                image={resultBox.thumbnails.default.url} 
+                link={resultBox.link}
+                handleClick={this.props.changeVideo}
+            />
         }); 
     }
     handleChange(event)
@@ -36,48 +42,44 @@ class Search extends Component {
         })
     }
     render() {
-        return <div className="topBar" style={containerStyles}>
+        return <div className="topBar" className="searchContainer">
             <input  
-                className="form-control" 
+                className="searchInput" 
                 type="text" 
-                placeholder="search" 
-                style={boxStyle}
                 onChange={this.handleChange.bind(this)}
                 onKeyDown={() => {
+                    // calls the search method in App.js, with the callback specified below 
                     this.props.handleSearch(this.state.currentInput, (results) => 
                     {
-                        console.log(results); 
+                        // filter out channels // REFACTOR: could be more elegant 
+                        let videos = []; 
+                        for(let result of results)
+                        {
+                            if(result.kind === "youtube#video")
+                            {
+                                videos.push(result); 
+                            }
+                        }
+                        // Update state / view on screen 
                         this.setState({
-                            resultBoxes : results
+                            resultBoxes : videos
                         })
                     }); 
                 }}
             >
             </input>
-            {this.renderResultBoxes()}
+            <div className="searchResults">
+                {this.renderVideoBoxes()}
+            </div>
         </div>
     }
 }
 
-ResultBox.propTypes = 
+VideoBox.propTypes = 
 {
     handleSearch : PropTypes.func
 }
 
-const containerStyles = 
-{
-    position: 'fixed', 
-    top  : '0',
-    width : "100vw",
-    height : '5%',
-    backgroundColor : "red"
-}
 
-const boxStyle = 
-{
-    height : "70%", 
-    width : "50%", 
-    fontSize : "2em"
-}
 
 export default Search; 
