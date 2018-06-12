@@ -9,7 +9,6 @@ __This app__ is supposed to be a small step in the right direction. For me and h
 ## Basic Features
 * Search for a video 
 * Watch _the video_ (nothing else!)
-* Minimalistic and _Optional_ GUI  
 
 ## Get The App Running 
 
@@ -24,7 +23,7 @@ __The browser__ should now open. However, if you try to search something, the co
 * Follow the Setup-guide on _the bottom half_ of [this](https://developers.google.com/api-client-library/javascript/start/start-js) page 
 * When you have your key, go back to the project folder on your computer.
 * Create a file called .env.local 
-* add ```REACT_APP_SEARCH_API_KEY=*The key you just got*```
+* add ```REACT_APP_YOUTUBE_API_KEY=*The key you just got*```
 * make sure that ".env.local" is listed in the ".gitignore"-file. This makes git ignore the file and the key stays on your computer. 
 
 __If you__ refresh the app, search should work 🐶 If you run into any trouble, contact me and I will do my best to help you out 👍
