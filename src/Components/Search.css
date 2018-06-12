@@ -1,0 +1,29 @@
+.searchContainer
+{
+    position: fixed; 
+    top  : 0; 
+    width : 100vw;
+    height : 5%;
+    background-color : rgb(5, 0, 34);
+}
+
+.searchInput
+{
+    align-self: center; 
+    width: 80vw; 
+    margin-left: 10%; 
+    margin-right: 10%; 
+    font-size: 1.5em; 
+}
+.searchResults
+{
+    width: 70%;    
+    margin: auto; 
+    background-color: rgba(200, 200, 200, 0.1)
+}
+@media only screen and (max-width: 600px) {
+    .searchResults
+    {
+        width: 90%; 
+    }
+}

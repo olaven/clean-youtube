@@ -33,6 +33,7 @@ yarn-error.log*
 # misc
 .DS_Store
 .env.local
+.env.local.save
 .env.development.local
 .env.test.local
 .env.production.local

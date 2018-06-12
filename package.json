@@ -6,11 +6,14 @@
   "main": "public/electron.js",
   "homepage": "./",
   "dependencies": {
+    "add": "^2.0.6",
     "electron-is-dev": "^0.3.0",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.0",
     "validator": "^9.4.0",
+    "yarn": "^1.7.0",
     "youtube-search": "^1.0.10"
   },
   "scripts": {
