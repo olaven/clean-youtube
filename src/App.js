@@ -26,7 +26,7 @@ class App extends Component
   {
     const opts = {
       maxResults : 10, 
-      key: 'AIzaSyAoNtNykGJF461BTg5uhI8P4c1UvgB93ho'
+      key: process.env.REACT_APP_YOUTUBE_API_KEY
     }
     searchYoutube(term, opts, (err, results) => 
     {
