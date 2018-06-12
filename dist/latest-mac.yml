@@ -1,0 +1,10 @@
+version: 0.1.0
+files:
+  - url: clean-youtube-0.1.0-mac.zip
+    sha512: JAD+rYDkZWtOffjWcgHyyONIhNtTJoHANFaDOx19eY3CTYThgOxiq3aj3sNm6t1Pfn/3WC5osmssyKEiS1+JYA==
+  - url: clean-youtube-0.1.0.dmg
+    sha512: dITDUaH5gJA8A0AtKLvKCkBvdWgdQylr6f8akmGL3Uw81HS2CdLOMwGqoIDz7odqhUruIwREkq0HOnTQ/IfsBA==
+    size: 52001567
+path: clean-youtube-0.1.0-mac.zip
+sha512: JAD+rYDkZWtOffjWcgHyyONIhNtTJoHANFaDOx19eY3CTYThgOxiq3aj3sNm6t1Pfn/3WC5osmssyKEiS1+JYA==
+releaseDate: '2018-02-03T23:06:57.753Z'
