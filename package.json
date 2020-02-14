@@ -13,7 +13,7 @@
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.0",
     "validator": "^9.4.0",
-    "yarn": "^1.17.3",
+    "yarn": "^1.22.0",
     "youtube-search": "^1.0.10"
   },
   "scripts": {
